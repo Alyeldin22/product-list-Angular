@@ -1,0 +1,21 @@
+<div class="wishlist-container">
+  <h2>My Wishlist</h2>
+
+  @if (wishlist.myWishlistCount()) {
+    <ul class="wishlist-list">
+      @for (item of wishlist.myWishlist(); track item.id) {
+        <li class="wishlist-item">
+          <img [src]="item.thumbnail" [alt]="item.title" width="60" height="60" />
+          <div class="item-details">
+            <h4>{{ item.title }}</h4>
+            <p>\${{ item.price }}</p>
+          </div>
+          <button (click)="wishlist.removeFromWishlist(item.id)">Remove</button>
+        </li>
+      }
+      <button class="clear-btn" (click)="wishlist.emptyWishlist()">Clear Wishlist</button>
+    </ul>
+  } @else {
+    <p>Your wishlist is empty.</p>
+  }
+</div>

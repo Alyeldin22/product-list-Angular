@@ -1,0 +1,31 @@
+<div class="product-card" *ngIf="_product() as product">
+
+  <!-- Stock Label -->
+  <div class="stock-label" [ngClass]="{
+    'in-stock': product.availabilityStatus === 'In Stock',
+    'low-stock': product.availabilityStatus === 'Low in Stock',
+    'out-of-stock': product.availabilityStatus === 'Not in Stock'
+  }">
+    {{ product.availabilityStatus }}
+  </div>
+
+  <img [src]="product.thumbnail" alt="{{ product.title }}" />
+
+  <h3>{{ product.title }}</h3>
+
+  <p class="description">{{ product.description }}</p>
+
+  <p class="price">
+    <strong>${{ product.price.toFixed(2) }}</strong>
+  </p>
+
+  <button (click)="toggleCart(product)" [disabled]="product.availabilityStatus === 'Not in Stock'" [ngClass]="{
+    'add-btn': !cartService.isInCart(product.id),
+    'remove-btn': cartService.isInCart(product.id),
+    'disabled': product.availabilityStatus === 'Not in Stock'
+  }">
+    {{ cartService.isInCart(product.id) ? 'Remove from Cart' : 'Add to Cart' }}
+  </button>
+  <button (click)="wishtlistt.addToWishlist($event, product)">❤️</button>
+
+</div>

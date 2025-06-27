@@ -1,0 +1,74 @@
+<section class="product-detail" *ngIf="product">
+  <div class="product-detail__container">
+
+    <!-- LEFT: Main Image + Thumbnails -->
+    <div class="product-detail__images">
+      <img class="main-image" [src]="selectedImage || product.thumbnail" alt="Main Image" />
+
+      <div class="thumbnail-row" *ngIf="product.images?.length">
+        <img
+          *ngFor="let img of product.images"
+          [src]="img"
+          [class.selected]="img === selectedImage"
+          (click)="selectImage(img)"
+          alt="Thumbnail"
+        />
+      </div>
+    </div>
+
+    <!-- RIGHT: Info Section -->
+    <div class="product-detail__info">
+
+      <!-- Title -->
+      <h1 class="product-title">{{ product.title }}</h1>
+
+      <!-- Description -->
+      <p class="product-description">{{ product.description }}</p>
+
+      <!-- Price Display -->
+      <div class="price-block">
+        <span
+          class="old-price"
+          *ngIf="product.discountPercentage"
+        >
+          ${{ (product.price * (1 + product.discountPercentage / 100)) | number: '1.2-2' }}
+        </span>
+        <strong class="new-price">
+          ${{ product.price | number: '1.2-2' }}
+        </strong>
+      </div>
+
+      <!-- Availability -->
+      <div
+        class="stock-status"
+        [ngClass]="{
+          'in-stock': product.availabilityStatus === 'In Stock',
+          'low-stock': product.availabilityStatus === 'Low in Stock',
+          'out-of-stock': product.availabilityStatus === 'Not in Stock'
+        }"
+      >
+        {{ product.availabilityStatus }}
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="quantity-selector">
+        <label>Quantity:</label>
+        <div class="quantity-controls">
+          <button (click)="decreaseQuantity()">−</button>
+          <span>{{ quantity }}</span>
+          <button (click)="increaseQuantity()">+</button>
+        </div>
+      </div>
+
+      <!-- Add to Cart -->
+      <button
+        class="add-to-cart-btn"
+        (click)="addToCart()"
+        [disabled]="product.availabilityStatus === 'Not in Stock'"
+      >
+        Add to Cart
+      </button>
+
+    </div>
+  </div>
+</section>
