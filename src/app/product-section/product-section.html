@@ -9,7 +9,7 @@
     {{ product.availabilityStatus }}
   </div>
 
-  <img [src]="product.thumbnail" alt="{{ product.title }}" />
+  <a [routerLink]="'/products/'+product.id"><img [src]="product.thumbnail" alt="{{ product.title }}" /></a>
 
   <h3>{{ product.title }}</h3>
 

@@ -3,12 +3,14 @@ import { Component, input, inject } from '@angular/core';
 import { CartHandling } from '../services/cart-handling';
 import { CommonModule } from '@angular/common';
 import { Wishlist } from '../store/wishlist';
+import { RouterLink } from '@angular/router';
+
 
 
 @Component({
   selector: 'app-product-section',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product-section.html',
   styleUrls: ['./product-section.scss']
 })
