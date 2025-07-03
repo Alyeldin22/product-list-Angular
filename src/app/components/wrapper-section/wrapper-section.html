@@ -1,0 +1,26 @@
+<h1>Products</h1>
+
+<div class="loading" *ngIf="loading">
+  <p>Loading products...</p>
+  <p>Please wait while we fetch the latest products.</p>
+</div>
+
+<div class="error" *ngIf="error">
+  <p>Error loading products. Please try again.</p>
+  <p>Check the browser console for more details.</p>
+  <button (click)="loadProducts()">Retry</button>
+</div>
+
+<div class="debug-info" *ngIf="!loading && !error">
+  <p>Products loaded: {{ products.length }}</p>
+</div>
+
+<section class="product-list" *ngIf="!loading && !error && products.length > 0">
+  <app-product-section 
+    *ngFor="let product of products; trackBy: trackByProductId" 
+    [_product]="product" />
+</section>
+
+<div class="no-products" *ngIf="!loading && !error && products.length === 0">
+  <p>No products found.</p>
+</div>

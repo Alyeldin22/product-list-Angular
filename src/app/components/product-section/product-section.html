@@ -1,0 +1,45 @@
+<div class="product-card" *ngIf="_product() as p">
+  <!-- Stock Label -->
+  <div class="stock-label" [ngClass]="getStockStatusClass(p.stock)">
+    {{ getStockStatus(p.stock) }}
+  </div>
+
+  <a [routerLink]="'/products/' + p.id" class="product-link">
+    <img [src]="p.thumbnail" alt="{{ p.title }}" class="product-image" />
+  </a>
+
+  <h3 class="product-title">{{ p.title }}</h3>
+
+  <p class="description">{{ p.description }}</p>
+
+  <!-- Rating Stars -->
+  <div class="rating">
+    <span class="stars">
+      <span *ngFor="let isFilled of generateStars(p.rating)" 
+            [class.filled]="isFilled" 
+            [class.empty]="!isFilled">
+        ★
+      </span>
+    </span>
+    <span class="rating-text">({{ p.rating }})</span>
+  </div>
+
+  <!-- Price Display -->
+  <div class="price-container">
+    <span class="original-price" *ngIf="p.discountPercentage > 0">
+      ${{ p.price.toFixed(2) }}
+    </span>
+    <span class="discounted-price">
+      ${{ p.price | discount:p.discountPercentage | number:'1.2-2' }}
+    </span>
+  </div>
+
+  <!-- Add to Cart Button -->
+  <button 
+    class="add-to-cart-btn" 
+    (click)="addToCart(p)"
+    [disabled]="p.stock === 0"
+    [ngClass]="{'disabled': p.stock === 0}">
+    {{ p.stock === 0 ? 'Out of Stock' : 'Add to Cart' }}
+  </button>
+</div>

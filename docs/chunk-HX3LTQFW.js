@@ -1,0 +1,1 @@
+import{Fa as t}from"./chunk-2UJNR4Y7.js";var i=class m{transform(e,r){return!r||r<=0?e:e-e*r/100}static \u0275fac=function(r){return new(r||m)};static \u0275pipe=t({name:"discount",type:m,pure:!0})};export{i as a};
